@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ChampionService {
@@ -15,9 +14,9 @@ public class ChampionService {
     private ChampionRepository championRepository;
 
     /**
-     * Saves the given champion in the database.
+     * Saves the given champion in the database
      * @param champion
-     * @return the saved champion.
+     * @return the saved champion
      */
     public Champion saveChampion(Champion champion) {
         Champion savedChampion = championRepository.save(champion);
@@ -25,13 +24,19 @@ public class ChampionService {
     }
 
     /**
-     * Finds all champions.
-     * @return the list of found champions.
+     * Finds all champions
+     * @return the list of found champions
      */
     public List<Champion> findAllChampions() {
         List<Champion> champions = championRepository.findAll();
         return champions;
     }
+
+    public Optional<Champion> findChampionById(Long id) {
+        Optional<Champion> optionalChampion = championRepository.findById(id);
+        return optionalChampion;
+    }
+
 
     /**
      * Updates the champion with the given id with values from the given champion.
