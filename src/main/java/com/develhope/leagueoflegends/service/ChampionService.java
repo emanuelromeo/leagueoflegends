@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ChampionService {
@@ -31,4 +32,10 @@ public class ChampionService {
         List<Champion> champions = championRepository.findAll();
         return champions;
     }
+
+    public Optional<Champion> findChampionById(Long id) {
+        Optional<Champion> optionalChampion = championRepository.findById(id);
+        return optionalChampion;
+    }
+
 }
