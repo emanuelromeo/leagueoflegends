@@ -22,4 +22,13 @@ public class ChampionService {
         Champion savedChampion = championRepository.save(champion);
         return savedChampion;
     }
+
+    /**
+     * Finds all champions
+     * @return the list of found champions
+     */
+    public List<Champion> findAllChampions() {
+        List<Champion> champions = championRepository.findAll();
+        return champions;
+    }
 }
