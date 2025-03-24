@@ -5,7 +5,8 @@ public enum ChampionRole {
     TANK("Tank"),
     MAGE("Mage"),
     SUPPORT("Support"),
-    JUNGLE("Jungle");
+    MARKSMAN("Marksman"),
+    FIGHTER("Fighter");
 
     private final String description;
 
