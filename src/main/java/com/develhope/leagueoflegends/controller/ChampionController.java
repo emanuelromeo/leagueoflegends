@@ -1,6 +1,7 @@
 package com.develhope.leagueoflegends.controller;
 
 import com.develhope.leagueoflegends.entity.Champion;
+import com.develhope.leagueoflegends.enumeration.ChampionRole;
 import com.develhope.leagueoflegends.service.ChampionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,19 @@ public class ChampionController {
     @Autowired
     private ChampionService championService;
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<Champion> createChampion(@RequestBody Champion champion) {
         Champion savedChampion = championService.saveChampion(champion);
         return ResponseEntity.ok(savedChampion);
     }
 
-    @GetMapping
+    @PostMapping("create-multiple")
+    public ResponseEntity<List<Champion>> createMultipleChampions(@RequestBody List<Champion> champions) {
+        List<Champion> championList = championService.saveMultipleChampions(champions);
+        return ResponseEntity.ok(championList);
+    }
+
+    @GetMapping("get-all")
     public ResponseEntity<List<Champion>> getAllChampions() {
         List<Champion> champions = championService.findAllChampions();
         return ResponseEntity.ok(champions);
@@ -47,6 +54,19 @@ public class ChampionController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("delete-by-id/{id}")
+    public ResponseEntity<String> deleteChampionById (@PathVariable Long id) {
+         championService.deleteById(id);
+        return ResponseEntity.ok("Champion Deleted");
+    }
+
+
+    @GetMapping("find-by-role")
+    public ResponseEntity<List<Champion>> getChampionsByRole (@RequestParam ChampionRole role) {
+        List<Champion> championList = championService.findByRole(role);
+        return ResponseEntity.ok(championList);
     }
 
 }

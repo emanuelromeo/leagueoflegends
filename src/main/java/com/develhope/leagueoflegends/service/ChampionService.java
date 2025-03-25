@@ -1,6 +1,7 @@
 package com.develhope.leagueoflegends.service;
 
 import com.develhope.leagueoflegends.entity.Champion;
+import com.develhope.leagueoflegends.enumeration.ChampionRole;
 import com.develhope.leagueoflegends.repository.ChampionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,16 @@ public class ChampionService {
     public Champion saveChampion(Champion champion) {
         Champion savedChampion = championRepository.save(champion);
         return savedChampion;
+    }
+
+    /**
+     * Saves multiple champions in the database
+     * @param champions
+     * @return the list of champions
+     */
+    public List<Champion> saveMultipleChampions (List<Champion> champions) {
+        List<Champion> championList = championRepository.saveAll(champions);
+        return championList;
     }
 
     /**
@@ -61,4 +72,29 @@ public class ChampionService {
 
         return Optional.empty();
     }
+
+    /**
+     * Deletes a champion by its ID if it exists.
+     * @param id
+     * @return "Champion Deleted" if successful
+     */
+    public String deleteById(Long id) {
+        if (championRepository.existsById(id)) {
+            championRepository.deleteById(id);
+            return "Champion Deleted";
+        } else {
+            return "Champion Not Found";
+        }
+    }
+
+    /**
+     * Finds all champions with the specified role.
+     * @param role
+     * @return a list of champions with the specified role, or an empty list if none are found
+     */
+    public List<Champion> findByRole (ChampionRole role) {
+        List<Champion> championList = championRepository.findByRole(role);
+        return championList;
+    }
+
 }
