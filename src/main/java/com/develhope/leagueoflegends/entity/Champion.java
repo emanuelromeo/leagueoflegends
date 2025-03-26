@@ -163,4 +163,21 @@ public class Champion {
     public void setAbilityPower(Long abilityPower) {
         this.abilityPower = abilityPower;
     }
+
+    public Long calculateBaseDamage() {
+        return this.baseDamage;
+    }
+
+    public void takeDamage(int damage) {
+        this.health -= damage;
+
+    }
+
+    public boolean isAlive() {
+        if (health> 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -19,6 +19,5 @@ public interface ChampionRepository extends JpaRepository<Champion, Long> {
 
     List<Champion> findByReleaseDate(LocalDate releaseDate);
 
-    //
 
 }
