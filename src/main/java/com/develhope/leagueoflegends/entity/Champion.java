@@ -11,6 +11,10 @@ import java.time.LocalDate;
 @Table(name = "champions")
 public class Champion {
 
+    private final Long startingLevel = 1L;
+    private final Long startingExperience = 0L;
+    private final Long startingAbilityPower = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,10 +37,10 @@ public class Champion {
     private LocalDate releaseDate;
 
     @Column(name = "level")
-    private Long level;
+    private Long level = startingLevel;
 
     @Column(name = "experience")
-    private Long experience;
+    private Long experience = startingExperience;
 
     @Column(name = "health")
     private Long health;
@@ -48,25 +52,64 @@ public class Champion {
     private Long baseDamage;
 
     @Column(name = "ability_power")
-    private Long abilityPower;
+    private Long abilityPower = startingAbilityPower;
 
     public Champion() {
     }
 
-    public Champion(Long id, String name, ChampionRole role, Integer difficulty, String region, LocalDate releaseDate, Long level, Long experience, Long health, Long mana, Long baseDamage, Long abilityPower) {
+    public Champion(Long id, String name, ChampionRole role, Integer difficulty, String region, LocalDate releaseDate, Long health, Long mana, Long baseDamage) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.difficulty = difficulty;
         this.region = region;
         this.releaseDate = releaseDate;
-        this.level = level;
-        this.experience = experience;
         this.health = health;
         this.mana = mana;
         this.baseDamage = baseDamage;
-        this.abilityPower = abilityPower;
     }
+
+    // Progression System
+
+    public void gainExperience(int exp) {
+
+        if (exp > 0) {
+            experience += exp;
+            System.out.println(name + " gained " + exp + " exp points!");
+        }
+
+        System.out.println("No exp points gained");
+    }
+
+    public void levelUp() {
+
+        level += 1;
+        System.out.println(name + " leveled up!");
+
+    }
+
+    public Long calculateExpToNextLevel() {
+
+        Long requiredExp = (long) (10 * Math.pow(level, 2));
+        System.out.println(name + " needs " + requiredExp + " exp points to level up");
+
+        return requiredExp;
+
+    }
+
+    public void updateStats(Long health, Long mana, Long baseDamage, Long abilityPower) {
+
+        this.health += health;
+        this.mana += mana;
+        this.baseDamage += baseDamage;
+        this.abilityPower += abilityPower;
+
+        System.out.println(name + " stats increased");
+
+    }
+
+
+    // Getter and Setter
 
     public Long getId() {
         return id;
