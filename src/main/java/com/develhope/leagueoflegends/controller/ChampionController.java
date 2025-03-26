@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,4 +70,29 @@ public class ChampionController {
         return ResponseEntity.ok(championList);
     }
 
+    /*List<Champion> findByDifficulty (int difficulty);
+
+    List<Champion> findByRegion (String region);
+
+    (LocalDate releaseDate);
+
+     */
+
+    @GetMapping("find-by-difficulty")
+    public ResponseEntity<List<Champion>> findByDifficulty (@RequestParam int difficulty) {
+        List<Champion> championList = championService.findByDifficulty(difficulty);
+        return ResponseEntity.ok(championList);
+    }
+
+    @GetMapping("find-by-region")
+    public ResponseEntity< List<Champion>> findByRegion (@RequestParam String region) {
+        List<Champion> championList = championService.findByRegion(region);
+        return ResponseEntity.ok(championList);
+    }
+
+    @GetMapping("find-by-releaseDate")
+    public ResponseEntity<List<Champion>> findByReleaseDate (@RequestParam LocalDate releaseDate) {
+        List<Champion> championList = championService.findByReleaseDate(releaseDate);
+        return ResponseEntity.ok(championList);
+    }
 }

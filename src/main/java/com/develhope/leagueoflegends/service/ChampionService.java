@@ -6,6 +6,7 @@ import com.develhope.leagueoflegends.repository.ChampionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,6 +95,36 @@ public class ChampionService {
      */
     public List<Champion> findByRole (ChampionRole role) {
         List<Champion> championList = championRepository.findByRole(role);
+        return championList;
+    }
+
+    /**
+     * Finds all champions with the specified difficulty.
+     * @param difficulty
+     * @return a list of champions with the specified difficulty, or an empty list if none are found
+     */
+    public List<Champion> findByDifficulty (int difficulty) {
+        List<Champion> championList = championRepository.findByDifficulty(difficulty);
+        return championList;
+    }
+
+    /**
+     * Finds all champions with the specified region.
+     * @param region
+     * @return a list of champions with the specified region, or an empty list if none are found
+     */
+    public List<Champion> findByRegion (String region) {
+        List<Champion> championList = championRepository.findByRegion(region);
+        return championList;
+    }
+
+    /**
+     * Finds all champions with the specified releaseDate.
+     * @param releaseDate
+     * @return a list of champions with the specified releaseDate, or an empty list if none are found
+     */
+    public List<Champion> findByReleaseDate(LocalDate releaseDate) {
+        List<Champion> championList = championRepository.findByReleaseDate(releaseDate);
         return championList;
     }
 
