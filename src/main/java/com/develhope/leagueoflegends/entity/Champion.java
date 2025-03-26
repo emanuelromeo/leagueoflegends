@@ -32,16 +32,40 @@ public class Champion {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
+    @Column(name = "level")
+    private Long level;
+
+    @Column(name = "experience")
+    private Long experience;
+
+    @Column(name = "health")
+    private Long health;
+
+    @Column(name = "mana")
+    private Long mana;
+
+    @Column(name = "base_damage")
+    private Long baseDamage;
+
+    @Column(name = "ability_power")
+    private Long abilityPower;
+
     public Champion() {
     }
 
-    public Champion(Long id, String name, ChampionRole role, Integer difficulty, String region, LocalDate releaseDate) {
+    public Champion(Long id, String name, ChampionRole role, Integer difficulty, String region, LocalDate releaseDate, Long level, Long experience, Long health, Long mana, Long baseDamage, Long abilityPower) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.difficulty = difficulty;
         this.region = region;
         this.releaseDate = releaseDate;
+        this.level = level;
+        this.experience = experience;
+        this.health = health;
+        this.mana = mana;
+        this.baseDamage = baseDamage;
+        this.abilityPower = abilityPower;
     }
 
     public Long getId() {
@@ -90,5 +114,53 @@ public class Champion {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Long getLevel() {
+        return level;
+    }
+
+    public void setLevel(Long level) {
+        this.level = level;
+    }
+
+    public Long getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Long experience) {
+        this.experience = experience;
+    }
+
+    public Long getHealth() {
+        return health;
+    }
+
+    public void setHealth(Long health) {
+        this.health = health;
+    }
+
+    public Long getMana() {
+        return mana;
+    }
+
+    public void setMana(Long mana) {
+        this.mana = mana;
+    }
+
+    public Long getBaseDamage() {
+        return baseDamage;
+    }
+
+    public void setBaseDamage(Long baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
+    public Long getAbilityPower() {
+        return abilityPower;
+    }
+
+    public void setAbilityPower(Long abilityPower) {
+        this.abilityPower = abilityPower;
     }
 }
