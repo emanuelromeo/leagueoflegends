@@ -207,6 +207,9 @@ public class Champion {
         this.abilityPower = abilityPower;
     }
 
+
+    // Combat System
+
     public Long calculateBaseDamage() {
         return this.baseDamage;
     }
