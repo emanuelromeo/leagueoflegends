@@ -11,9 +11,16 @@ import java.time.LocalDate;
 @Table(name = "champions")
 public class Champion {
 
+    // Starting values
     private final Long startingLevel = 1L;
     private final Long startingExperience = 0L;
     private final Long startingAbilityPower = 1L;
+
+    // Increase gap per turn
+    private final Long healthPerLevel = 5L;
+    private final Long manaPerLevel = 5L;
+    private final Long baseDamagePerLevel = 2L;
+    private final Long abilityPowerPerLevel = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,25 +76,40 @@ public class Champion {
         this.baseDamage = baseDamage;
     }
 
+
+
     // Progression System
 
-    public void gainExperience(int exp) {
+    // Increase champion's exp points
+    public void gainExperience(Long exp) {
 
+        // Check if experience points are valid
         if (exp > 0) {
+
+            // Increase experience
             experience += exp;
             System.out.println(name + " gained " + exp + " exp points!");
+
+            // Check if champion can level up
+            if (this.experience >= calculateExpToNextLevel()) {
+                levelUp();
+            }
         }
 
         System.out.println("No exp points gained");
     }
 
+    // Level up the champion
     public void levelUp() {
 
         level += 1;
         System.out.println(name + " leveled up!");
 
+        updateStats(healthPerLevel, manaPerLevel, baseDamagePerLevel, abilityPowerPerLevel);
+
     }
 
+    // Calculate required exp to level up based on champion's actual level
     public Long calculateExpToNextLevel() {
 
         Long requiredExp = (long) (10 * Math.pow(level, 2));
@@ -97,6 +119,7 @@ public class Champion {
 
     }
 
+    // Increases champion's stats
     public void updateStats(Long health, Long mana, Long baseDamage, Long abilityPower) {
 
         this.health += health;
@@ -107,6 +130,7 @@ public class Champion {
         System.out.println(name + " stats increased");
 
     }
+
 
 
     // Getter and Setter
@@ -208,13 +232,14 @@ public class Champion {
     }
 
 
+
     // Combat System
 
     public Long calculateBaseDamage() {
         return this.baseDamage;
     }
 
-    public void takeDamage(int damage) {
+    public void takeDamage(Long damage) {
         this.health -= damage;
 
     }

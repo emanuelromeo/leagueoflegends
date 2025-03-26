@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ChampionService {
+public class ChampionService implements CombatService {
 
     @Autowired
     private ChampionRepository championRepository;
@@ -129,5 +129,67 @@ public class ChampionService {
     }
 
 
+    @Override
+    public Optional<Champion> simulateCombatAndReturnWinner(Long attacker_id, Long defender_id) {
 
+        // Find champions in db
+        Optional<Champion> optionalAttacker = championRepository.findById(attacker_id);
+        Optional<Champion> optionalDefender = championRepository.findById(defender_id);
+
+        // Check if they are presents
+        if (optionalAttacker.isEmpty() || optionalDefender.isEmpty()) {
+            return Optional.empty();
+        }
+
+        // Get attacker and defender (so don't have to call .get() every time)
+        Champion attacker = optionalAttacker.get();
+        Champion defender = optionalDefender.get();
+
+        // Calculate and inflict damage to defender
+        Long damage = calculateDamage(attacker, defender);
+        defender.takeDamage(damage);
+
+        // Save defender updates
+        championRepository.save(defender);
+        System.out.println(attacker.getName() + " inflicted " + damage + " damage to " + defender.getName());
+
+        // Calculate and add exp to attacker
+        Long exp = calculateExperienceGain(attacker, defender);
+        attacker.gainExperience(exp);
+
+        // Save attacker updates
+        championRepository.save(attacker);
+        System.out.println(attacker.getName() + " gained " + exp + " exp points");
+
+        // Check if defender died
+        if (!defender.isAlive()) {
+            return Optional.of(attacker);
+        }
+
+        // Now it's defender's turn to attack!
+        return simulateCombatAndReturnWinner(defender_id, attacker_id);
+
+    }
+
+    @Override
+    public Long calculateDamage(Champion attacker, Champion defender) {
+
+        // Calculate total attack based on attacker role
+        Long totalAttack = attacker.getBaseDamage() + attacker.getRole().getAttack();
+
+        // Calculate damage based on defender role
+        Long damage = totalAttack - defender.getRole().getDefence();
+
+        return damage;
+    }
+
+    @Override
+    public Long calculateExperienceGain(Champion attacker, Champion defender) {
+
+        // Calculate gained experience based on inflicted damage
+        Long gainedExperience = calculateDamage(attacker, defender) * 100;
+
+        return gainedExperience;
+
+    }
 }
