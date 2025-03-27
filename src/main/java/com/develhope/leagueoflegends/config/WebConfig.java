@@ -10,7 +10,7 @@ public class WebConfig {
 
 
     @Bean
-    public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+    public FilterRegistrationBean<LoggingFilter> getLoggingFilter() {
 
         FilterRegistrationBean<LoggingFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new LoggingFilter());
