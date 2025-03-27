@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -129,48 +130,60 @@ public class ChampionService implements CombatService {
     }
 
 
+    /**
+     * Simulates an attack from the attacker to the defender and updates champions
+     * letting defender take damage and attacker gain experience.
+     * @param attacker_id
+     * @param defender_id
+     * @return the list of updated champions, or an empty list if champions not found
+     */
     @Override
-    public Optional<Champion> simulateCombatAndReturnWinner(Long attacker_id, Long defender_id) {
+    public List<Champion> simulateCombat(Long attacker_id, Long defender_id) {
 
-        // Find champions in db
+        List<Champion> updatedChampions = new ArrayList<>();
+
+        // Find champions by id
         Optional<Champion> optionalAttacker = championRepository.findById(attacker_id);
         Optional<Champion> optionalDefender = championRepository.findById(defender_id);
 
-        // Check if they are presents
-        if (optionalAttacker.isEmpty() || optionalDefender.isEmpty()) {
-            return Optional.empty();
+        // Check if champions are present
+        if (optionalAttacker.isPresent() && optionalDefender.isPresent()) {
+
+            // Get champions
+            Champion attacker = optionalAttacker.get();
+            Champion defender = optionalDefender.get();
+
+            // Calculate and inflict damage to defender
+            Long damage = calculateDamage(attacker, defender);
+            defender.takeDamage(damage);
+
+            // Save defender updates
+            Champion updatedDefender = championRepository.save(defender);
+            System.out.println(attacker.getName() + " inflicted " + damage + " damage to " + defender.getName());
+
+            // Calculate and add exp to attacker
+            Long exp = calculateExperienceGain(attacker, defender);
+            attacker.gainExperience(exp);
+
+            // Save attacker updates
+            Champion updatedAttacker = championRepository.save(attacker);
+            System.out.println(attacker.getName() + " gained " + exp + " exp points");
+
+            // Add updated champions to list
+            updatedChampions.add(updatedAttacker);
+            updatedChampions.add(updatedDefender);
         }
 
-        // Get attacker and defender (so don't have to call .get() every time)
-        Champion attacker = optionalAttacker.get();
-        Champion defender = optionalDefender.get();
-
-        // Calculate and inflict damage to defender
-        Long damage = calculateDamage(attacker, defender);
-        defender.takeDamage(damage);
-
-        // Save defender updates
-        championRepository.save(defender);
-        System.out.println(attacker.getName() + " inflicted " + damage + " damage to " + defender.getName());
-
-        // Calculate and add exp to attacker
-        Long exp = calculateExperienceGain(attacker, defender);
-        attacker.gainExperience(exp);
-
-        // Save attacker updates
-        championRepository.save(attacker);
-        System.out.println(attacker.getName() + " gained " + exp + " exp points");
-
-        // Check if defender died
-        if (!defender.isAlive()) {
-            return Optional.of(attacker);
-        }
-
-        // Now it's defender's turn to attack!
-        return simulateCombatAndReturnWinner(defender_id, attacker_id);
+        return updatedChampions;
 
     }
 
+    /**
+     * Calculates damage from a combat between two champions
+     * @param attacker
+     * @param defender
+     * @return the defender's taken damage
+     */
     @Override
     public Long calculateDamage(Champion attacker, Champion defender) {
 
@@ -183,6 +196,12 @@ public class ChampionService implements CombatService {
         return damage;
     }
 
+    /**
+     * Calculates experience gained from a combat between two champions
+     * @param attacker
+     * @param defender
+     * @return the attacker's gained experience
+     */
     @Override
     public Long calculateExperienceGain(Champion attacker, Champion defender) {
 
