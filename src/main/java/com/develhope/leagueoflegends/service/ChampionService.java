@@ -127,7 +127,4 @@ public class ChampionService {
         List<Champion> championList = championRepository.findByReleaseDate(releaseDate);
         return championList;
     }
-
-
-
 }

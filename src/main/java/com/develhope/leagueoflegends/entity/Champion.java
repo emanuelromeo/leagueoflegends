@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "champions")
@@ -49,6 +51,10 @@ public class Champion {
 
     @Column(name = "ability_power")
     private Long abilityPower;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "champion_id")
+    private List<Ability> abilities;
 
     public Champion() {
     }
@@ -180,4 +186,13 @@ public class Champion {
 
         return false;
     }
+
+    public void addAbility (Ability ability) {
+        this.abilities.add(ability);
+    }
+
+    public void removeAbility (Ability ability) {
+        this.abilities.remove(ability);
+    }
+
 }
