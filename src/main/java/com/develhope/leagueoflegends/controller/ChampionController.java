@@ -63,20 +63,11 @@ public class ChampionController {
         return ResponseEntity.ok("Champion Deleted");
     }
 
-
     @GetMapping("find-by-role")
     public ResponseEntity<List<Champion>> getChampionsByRole(@RequestParam ChampionRole role) {
         List<Champion> championList = championService.findByRole(role);
         return ResponseEntity.ok(championList);
     }
-
-    /*List<Champion> findByDifficulty (int difficulty);
-
-    List<Champion> findByRegion (String region);
-
-    (LocalDate releaseDate);
-
-     */
 
     @GetMapping("find-by-difficulty")
     public ResponseEntity<List<Champion>> findByDifficulty(@RequestParam int difficulty) {
