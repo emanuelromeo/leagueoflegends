@@ -3,6 +3,7 @@ package com.develhope.leagueoflegends.entity;
 import com.develhope.leagueoflegends.enumeration.ChampionRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -29,7 +30,7 @@ public class Champion {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "role")
+    @Column(name = "role", length = 50)
     @Enumerated(value = EnumType.STRING)
     private ChampionRole role;
 
@@ -43,12 +44,6 @@ public class Champion {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
-    @Column(name = "level")
-    private Long level = startingLevel;
-
-    @Column(name = "experience")
-    private Long experience = startingExperience;
-
     @Column(name = "health")
     private Long health;
 
@@ -57,6 +52,12 @@ public class Champion {
 
     @Column(name = "base_damage")
     private Long baseDamage;
+
+    @Column(name = "level")
+    private Long level = startingLevel;
+
+    @Column(name = "experience")
+    private Long experience = startingExperience;
 
     @Column(name = "ability_power")
     private Long abilityPower = startingAbilityPower;
@@ -91,7 +92,7 @@ public class Champion {
             System.out.println(name + " gained " + exp + " exp points!");
 
             // Check if champion can level up
-            if (this.experience >= calculateExpToNextLevel()) {
+            while (this.experience >= calculateExpToNextLevel()) {
                 levelUp();
             }
         }
@@ -230,7 +231,6 @@ public class Champion {
     public void setAbilityPower(Long abilityPower) {
         this.abilityPower = abilityPower;
     }
-
 
 
     // Combat System

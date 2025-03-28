@@ -135,7 +135,7 @@ public class ChampionService implements CombatService {
      * letting defender take damage and attacker gain experience.
      * @param attacker_id
      * @param defender_id
-     * @return the list of updated champions, or an empty list if champions not found
+     * @return the list of updated champions, or an empty list if champions not found.
      */
     @Override
     public List<Champion> simulateCombat(Long attacker_id, Long defender_id) {
@@ -179,10 +179,10 @@ public class ChampionService implements CombatService {
     }
 
     /**
-     * Calculates damage from a combat between two champions
+     * Calculates damage from a combat between two champions.
      * @param attacker
      * @param defender
-     * @return the defender's taken damage
+     * @return the defender's taken damage.
      */
     @Override
     public Long calculateDamage(Champion attacker, Champion defender) {
@@ -197,16 +197,16 @@ public class ChampionService implements CombatService {
     }
 
     /**
-     * Calculates experience gained from a combat between two champions
+     * Calculates experience gained from a combat between two champions.
      * @param attacker
      * @param defender
-     * @return the attacker's gained experience
+     * @return the attacker's gained experience.
      */
     @Override
     public Long calculateExperienceGain(Champion attacker, Champion defender) {
 
         // Calculate gained experience based on inflicted damage
-        Long gainedExperience = calculateDamage(attacker, defender) * 100;
+        Long gainedExperience = calculateDamage(attacker, defender) * 10;
 
         return gainedExperience;
 

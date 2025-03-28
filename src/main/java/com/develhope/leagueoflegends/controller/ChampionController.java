@@ -58,14 +58,14 @@ public class ChampionController {
     }
 
     @DeleteMapping("delete-by-id/{id}")
-    public ResponseEntity<String> deleteChampionById (@PathVariable Long id) {
-         championService.deleteById(id);
+    public ResponseEntity<String> deleteChampionById(@PathVariable Long id) {
+        championService.deleteById(id);
         return ResponseEntity.ok("Champion Deleted");
     }
 
 
     @GetMapping("find-by-role")
-    public ResponseEntity<List<Champion>> getChampionsByRole (@RequestParam ChampionRole role) {
+    public ResponseEntity<List<Champion>> getChampionsByRole(@RequestParam ChampionRole role) {
         List<Champion> championList = championService.findByRole(role);
         return ResponseEntity.ok(championList);
     }
@@ -79,20 +79,44 @@ public class ChampionController {
      */
 
     @GetMapping("find-by-difficulty")
-    public ResponseEntity<List<Champion>> findByDifficulty (@RequestParam int difficulty) {
+    public ResponseEntity<List<Champion>> findByDifficulty(@RequestParam int difficulty) {
         List<Champion> championList = championService.findByDifficulty(difficulty);
         return ResponseEntity.ok(championList);
     }
 
     @GetMapping("find-by-region")
-    public ResponseEntity< List<Champion>> findByRegion (@RequestParam String region) {
+    public ResponseEntity<List<Champion>> findByRegion(@RequestParam String region) {
         List<Champion> championList = championService.findByRegion(region);
         return ResponseEntity.ok(championList);
     }
 
     @GetMapping("find-by-releaseDate")
-    public ResponseEntity<List<Champion>> findByReleaseDate (@RequestParam LocalDate releaseDate) {
+    public ResponseEntity<List<Champion>> findByReleaseDate(@RequestParam LocalDate releaseDate) {
         List<Champion> championList = championService.findByReleaseDate(releaseDate);
         return ResponseEntity.ok(championList);
     }
+
+    /**
+     * Simulates an attack from the attacker to the defender and updates champions
+     * letting defender take damage and attacker gain experience.
+     *
+     * @param attacker_id
+     * @param defender_id
+     * @return the list of updated champions, or an empty list if champions not found.
+     */
+    @PutMapping("/simulate-combat")
+    public ResponseEntity<List<Champion>> simulateCombat(
+            @RequestParam Long attacker_id,
+            @RequestParam Long defender_id) {
+
+        List<Champion> champions = championService.simulateCombat(attacker_id, defender_id);
+
+        if (champions.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(champions);
+
+    }
+
 }
