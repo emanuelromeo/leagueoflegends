@@ -63,7 +63,6 @@ public class ChampionController {
         return ResponseEntity.ok("Champion Deleted");
     }
 
-
     @GetMapping("find-by-role")
     public ResponseEntity<List<Champion>> getChampionsByRole(@RequestParam ChampionRole role) {
         List<Champion> championList = championService.findByRole(role);
