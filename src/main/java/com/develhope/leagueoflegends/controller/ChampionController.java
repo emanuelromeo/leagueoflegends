@@ -30,7 +30,7 @@ public class ChampionController {
         return ResponseEntity.ok(championList);
     }
 
-    @GetMapping("get-all")
+    @GetMapping("find-all")
     public ResponseEntity<List<Champion>> getAllChampions() {
         List<Champion> champions = championService.findAllChampions();
         return ResponseEntity.ok(champions);
@@ -70,12 +70,12 @@ public class ChampionController {
         return ResponseEntity.ok(championList);
     }
 
-    /*List<Champion> findByDifficulty (int difficulty);
+    /*
+    List<Champion> findByDifficulty (int difficulty);
 
     List<Champion> findByRegion (String region);
 
     (LocalDate releaseDate);
-
      */
 
     @GetMapping("find-by-difficulty")

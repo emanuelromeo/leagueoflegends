@@ -18,9 +18,9 @@ public class LoggingInterceptor implements HandlerInterceptor {
     ) throws Exception {
 
         // Logica pre-elaborazione
-        System.out.println("Request: " + request);
-        System.out.println("Response: " + response);
-        System.out.println("Handler: " + handler);
+//        System.out.println("Request: " + request);
+//        System.out.println("Response: " + response);
+//        System.out.println("Handler: " + handler);
 
         return true; // Continua la catena di interceptor
 
@@ -39,10 +39,10 @@ public class LoggingInterceptor implements HandlerInterceptor {
     ) throws Exception {
 
         // Modifiche al model prima del rendering
-        System.out.println("Request: " + request);
-        System.out.println("Response: " + response);
-        System.out.println("Handler: " + handler);
-        System.out.println("Model: " + modelAndView);
+//        System.out.println("Request: " + request);
+//        System.out.println("Response: " + response);
+//        System.out.println("Handler: " + handler);
+//        System.out.println("Model: " + modelAndView);
 
     }
 
@@ -59,10 +59,10 @@ public class LoggingInterceptor implements HandlerInterceptor {
     ) throws Exception {
 
         // Pulizia risorse, logging finale
-        System.out.println("Request: " + request);
-        System.out.println("Response: " + response);
-        System.out.println("Handler: " + handler);
-        System.out.println("Exception: " + ex);
+//        System.out.println("Request: " + request);
+//        System.out.println("Response: " + response);
+//        System.out.println("Handler: " + handler);
+//        System.out.println("Exception: " + ex);
 
     }
 
