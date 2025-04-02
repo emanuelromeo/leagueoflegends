@@ -1,7 +1,6 @@
 package com.develhope.leagueoflegends.service;
 
 import com.develhope.leagueoflegends.entity.Ability;
-import com.develhope.leagueoflegends.entity.Champion;
 import com.develhope.leagueoflegends.repository.AbilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class AbilityService {
      * @param ability
      * @return ability saved
      */
-    public Ability addAbility(Ability ability) {
+    public Ability createAbility(Ability ability) {
         return abilityRepository.save(ability);
     }
 
@@ -28,7 +27,7 @@ public class AbilityService {
      * Get List of Abilities
      * @return List of abilities
      */
-    public List<Ability> getAllAbilities() {
+    public List<Ability> findAllAbilities() {
         List<Ability> abilities = abilityRepository.findAll();
         return abilities;
     }

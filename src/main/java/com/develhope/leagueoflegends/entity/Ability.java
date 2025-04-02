@@ -20,7 +20,7 @@ public class Ability {
     private Long manaRequired;
 
     @ManyToOne
-    @JoinColumn(name = "champion_id", nullable = false)
+    @JoinColumn(name = "champion_id")
     private Champion champion;
 
 

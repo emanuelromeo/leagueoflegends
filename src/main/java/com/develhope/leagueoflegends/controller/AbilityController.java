@@ -16,19 +16,19 @@ public class AbilityController {
     @Autowired
     private AbilityService abilityService;
 
-    @PostMapping("create-ability")
+    @PostMapping("/create-ability")
     public ResponseEntity<Ability> createAbility(@RequestBody Ability ability) {
-        Ability abilitySaved = abilityService.addAbility(ability);
+        Ability abilitySaved = abilityService.createAbility(ability);
         return ResponseEntity.ok(abilitySaved);
     }
 
-    @GetMapping("get-all")
-    public ResponseEntity<List<Ability>> getAll() {
-        List<Ability> abilities = abilityService.getAllAbilities();
+    @GetMapping("/find-all")
+    public ResponseEntity<List<Ability>> findAll() {
+        List<Ability> abilities = abilityService.findAllAbilities();
         return ResponseEntity.ok(abilities);
     }
 
-    @GetMapping("find-by-id")
+    @GetMapping("/find-by-id/{id}")
     public ResponseEntity<Ability> findAbilityById(@PathVariable Long id) {
         Optional<Ability> abilityOptional = abilityService.findAbilityById(id);
 
@@ -49,7 +49,7 @@ public class AbilityController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("delete-ability")
+    @DeleteMapping("/delete-ability/{id}")
     public ResponseEntity<String> deleteteAbility(@PathVariable Long id) {
         abilityService.deleteAbility(id);
         return ResponseEntity.ok("Ability Deleted");

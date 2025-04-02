@@ -10,7 +10,7 @@ public class FilterConfig {
 
 
     @Bean
-    public FilterRegistrationBean<RoleFilter> getRoleFilter() {
+    public FilterRegistrationBean<RoleFilter> roleFilter() {
 
         FilterRegistrationBean<RoleFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new RoleFilter());
