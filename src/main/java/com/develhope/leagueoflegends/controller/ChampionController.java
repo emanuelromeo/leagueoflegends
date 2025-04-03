@@ -18,19 +18,19 @@ public class ChampionController {
     @Autowired
     private ChampionService championService;
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<Champion> createChampion(@RequestBody Champion champion) {
         Champion savedChampion = championService.saveChampion(champion);
         return ResponseEntity.ok(savedChampion);
     }
 
-    @PostMapping("create-multiple")
+    @PostMapping("/create-multiple")
     public ResponseEntity<List<Champion>> createMultipleChampions(@RequestBody List<Champion> champions) {
         List<Champion> championList = championService.saveMultipleChampions(champions);
         return ResponseEntity.ok(championList);
     }
 
-    @GetMapping("find-all")
+    @GetMapping("/find-all")
     public ResponseEntity<List<Champion>> getAllChampions() {
         List<Champion> champions = championService.findAllChampions();
         return ResponseEntity.ok(champions);
@@ -57,13 +57,13 @@ public class ChampionController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("delete-by-id/{id}")
+    @DeleteMapping("/delete-by-id/{id}")
     public ResponseEntity<String> deleteChampionById(@PathVariable Long id) {
         championService.deleteById(id);
         return ResponseEntity.ok("Champion Deleted");
     }
 
-    @GetMapping("find-by-role")
+    @GetMapping("/find-by-role")
     public ResponseEntity<List<Champion>> getChampionsByRole(@RequestParam ChampionRole role) {
         List<Champion> championList = championService.findByRole(role);
         return ResponseEntity.ok(championList);
@@ -77,19 +77,19 @@ public class ChampionController {
     (LocalDate releaseDate);
      */
 
-    @GetMapping("find-by-difficulty")
+    @GetMapping("/find-by-difficulty")
     public ResponseEntity<List<Champion>> findByDifficulty(@RequestParam int difficulty) {
         List<Champion> championList = championService.findByDifficulty(difficulty);
         return ResponseEntity.ok(championList);
     }
 
-    @GetMapping("find-by-region")
+    @GetMapping("/find-by-region")
     public ResponseEntity<List<Champion>> findByRegion(@RequestParam String region) {
         List<Champion> championList = championService.findByRegion(region);
         return ResponseEntity.ok(championList);
     }
 
-    @GetMapping("find-by-releaseDate")
+    @GetMapping("/find-by-release-date")
     public ResponseEntity<List<Champion>> findByReleaseDate(@RequestParam LocalDate releaseDate) {
         List<Champion> championList = championService.findByReleaseDate(releaseDate);
         return ResponseEntity.ok(championList);
