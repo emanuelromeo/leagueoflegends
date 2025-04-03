@@ -45,6 +45,7 @@ public class AbilityTest {
         ability.setManaRequired(50L);
     }
 
+    // Test POST request to create an ability
     @Test
     public void testCreateAbility() throws Exception {
         when(abilityService.createAbility(any(Ability.class))).thenReturn(ability);
@@ -57,6 +58,7 @@ public class AbilityTest {
                 .andExpect(jsonPath("$.name").value(ability.getName()));
     }
 
+    // Test GET request to find all abilities
     @Test
     public void testFindAll() throws Exception {
         when(abilityService.findAllAbilities()).thenReturn(Collections.singletonList(ability));
@@ -67,6 +69,7 @@ public class AbilityTest {
 
     }
 
+    // Test GET request to find an ability by id
     @Test
     public void testFindById() throws Exception {
         when(abilityService.findAbilityById(anyLong())).thenReturn(Optional.of(ability));
@@ -77,6 +80,7 @@ public class AbilityTest {
                 .andExpect(jsonPath("$.name").value(ability.getName()));
     }
 
+    // Test PUT request to update an ability by id
     @Test
     public void testUpdate() throws Exception {
         when(abilityService.updateAbility(anyLong(), any(Ability.class))).thenReturn(Optional.of(ability));
@@ -89,6 +93,7 @@ public class AbilityTest {
                 .andExpect(jsonPath("$.name").value(ability.getName()));
     }
 
+    // Test DELETE request to delete an ability by id
     @Test
     public void testDelete() throws Exception {
         when(abilityService.deleteAbility(anyLong())).thenReturn("Ability Deleted");

@@ -58,6 +58,7 @@ public class ChampionTest {
         champion.setBaseDamage(20L);
     }
 
+    // Test POST request to create a champion
     @Test
     public void create() throws Exception {
         when(championService.saveChampion(any(Champion.class))).thenReturn(champion);
@@ -70,6 +71,7 @@ public class ChampionTest {
                 .andExpect(jsonPath("$.name").value(champion.getName()));
     }
 
+    // Test POST request to create multiple champions
     @Test
     public void createMultiple() throws Exception {
         when(championService.saveMultipleChampions(anyList())).thenReturn(List.of(champion));
@@ -81,6 +83,7 @@ public class ChampionTest {
                 .andExpect(status().isOk());
     }
 
+    // Test GET request to find all champions
     @Test
     public void findAll() throws Exception {
         when(championService.findAllChampions()).thenReturn(Collections.singletonList(champion));
@@ -91,6 +94,7 @@ public class ChampionTest {
 
     }
 
+    // Test GET request to find a champion by id
     @Test
     public void findById() throws Exception {
         when(championService.findChampionById(anyLong())).thenReturn(Optional.of(champion));
@@ -101,6 +105,7 @@ public class ChampionTest {
                 .andExpect(jsonPath("$.name").value(champion.getName()));
     }
 
+    // Test GET request when champion not found by id
     @Test
     public void notFoundById() throws Exception {
         when(championService.findChampionById(anyLong())).thenReturn(Optional.empty());
@@ -110,6 +115,7 @@ public class ChampionTest {
                 .andExpect(status().isNotFound());
     }
 
+    // Test PUT request to update a champion by id
     @Test
     public void update() throws Exception {
         when(championService.updateChampion(anyLong(), any(Champion.class))).thenReturn(Optional.of(champion));
@@ -122,6 +128,7 @@ public class ChampionTest {
                 .andExpect(jsonPath("$.name").value(champion.getName()));
     }
 
+    // Test PUT request when champion to update not found by id
     @Test
     public void notFoundToUpdate() throws Exception {
         when(championService.updateChampion(anyLong(), any(Champion.class))).thenReturn(Optional.empty());
@@ -133,6 +140,7 @@ public class ChampionTest {
                 .andExpect(status().isNotFound());
     }
 
+    // Test DELETE request to delete a champion by id
     @Test
     public void deleteById() throws Exception {
         when(championService.deleteById(anyLong())).thenReturn("Champion Deleted");
@@ -143,6 +151,7 @@ public class ChampionTest {
                 .andExpect(content().string("Champion Deleted"));
     }
 
+    // Test GET request to find champions by role
     @Test
     public void findByRole() throws Exception {
         when(championService.findByRole(any(ChampionRole.class))).thenReturn(List.of(champion));
@@ -153,6 +162,7 @@ public class ChampionTest {
                 .andExpect(status().isOk());
     }
 
+    // Test GET request to find champions by region
     @Test
     public void findByRegion() throws Exception {
         when(championService.findByRole(any(ChampionRole.class))).thenReturn(List.of(champion));
@@ -163,6 +173,7 @@ public class ChampionTest {
                 .andExpect(status().isOk());
     }
 
+    // Test GET request to find champions by difficulty
     @Test
     public void findByDifficulty() throws Exception {
         when(championService.findByRole(any(ChampionRole.class))).thenReturn(List.of(champion));
@@ -173,6 +184,7 @@ public class ChampionTest {
                 .andExpect(status().isOk());
     }
 
+    // Test GET request to find champions by release date
     @Test
     public void findByReleaseDate() throws Exception {
         when(championService.findByRole(any(ChampionRole.class))).thenReturn(List.of(champion));
