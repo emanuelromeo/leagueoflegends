@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/champions")
+@CrossOrigin
 public class ChampionController {
 
     @Autowired
